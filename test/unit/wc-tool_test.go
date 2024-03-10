@@ -6,19 +6,16 @@ import (
 	"wc-tool/pkg/commands"
 )
 
-var sampleText string
+var input string
 
 func setup() {
-	sampleText = "Hello\nWorld\n"
+	input = "Hello\nWorld\n"
 }
 
 func TestByteCount(t *testing.T) {
 	setup()
-
 	expectedBytes := 12
-
-	bytes := commands.ByteCount(sampleText)
-
+	bytes := commands.ByteCount(input)
 	if bytes != expectedBytes {
 		t.Errorf("Expected %d bytes, got %d", expectedBytes, bytes)
 	}
@@ -26,35 +23,26 @@ func TestByteCount(t *testing.T) {
 
 func TestLineCount(t *testing.T) {
 	setup()
-
 	expectedLines := 2
-
-	bytes := commands.LineCount(sampleText)
-
-	if bytes != expectedLines {
-		t.Errorf("Expected %d lines, got %d", expectedLines, bytes)
+	lines := commands.LineCount(input)
+	if lines != expectedLines {
+		t.Errorf("Expected %d lines, got %d", expectedLines, lines)
 	}
 }
 
 func TestWordCount(t *testing.T) {
 	setup()
-
 	expectedWords := 2
-
-	bytes := commands.WordCount(sampleText)
-
-	if bytes != expectedWords {
-		t.Errorf("Expected %d words, got %d", expectedWords, bytes)
+	words := commands.WordCount(input)
+	if words != expectedWords {
+		t.Errorf("Expected %d words, got %d", expectedWords, words)
 	}
 }
 
 func TestCharacterCount(t *testing.T) {
 	setup()
-
 	expectedCharacters := 12
-
-	characters := commands.CharacterCount(sampleText)
-
+	characters := commands.CharacterCount(input)
 	if characters != expectedCharacters {
 		t.Errorf("Expected %d words, got %d", expectedCharacters, characters)
 	}

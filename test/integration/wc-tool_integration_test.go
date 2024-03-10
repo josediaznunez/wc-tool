@@ -6,15 +6,15 @@ import (
 	"testing"
 )
 
-func TestWCToolByteCountFromFile(t *testing.T) {
-	setupWCTool(t)
+var file string
 
-	file := "./../test.txt"
+func TestWCToolByteCountFromFile(t *testing.T) {
+	setup(t)
 
 	cmd := exec.Command("./wc-tool", "-c", file)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		cleanupWCTool(t)
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -23,17 +23,16 @@ func TestWCToolByteCountFromFile(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolLineCountFromFile(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	cmd := exec.Command("./wc-tool", "-l", file)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -42,17 +41,16 @@ func TestWCToolLineCountFromFile(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolWordCountFromFile(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	cmd := exec.Command("./wc-tool", "-w", file)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -61,17 +59,16 @@ func TestWCToolWordCountFromFile(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolCharacterCountFromFile(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	cmd := exec.Command("./wc-tool", "-m", file)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -80,17 +77,16 @@ func TestWCToolCharacterCountFromFile(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolDefaultCountFromFile(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	cmd := exec.Command("./wc-tool", file)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -99,13 +95,11 @@ func TestWCToolDefaultCountFromFile(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolLineCountFromStandardInput(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	content := read(file, t)
 
@@ -122,6 +116,7 @@ func TestWCToolLineCountFromStandardInput(t *testing.T) {
 	cmd.Stdin = pipeReader
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -130,13 +125,11 @@ func TestWCToolLineCountFromStandardInput(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolWordCountFromStandardInput(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	content := read(file, t)
 
@@ -153,6 +146,7 @@ func TestWCToolWordCountFromStandardInput(t *testing.T) {
 	cmd.Stdin = pipeReader
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -161,13 +155,11 @@ func TestWCToolWordCountFromStandardInput(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolByteCountFromStandardInput(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	content := read(file, t)
 
@@ -184,6 +176,7 @@ func TestWCToolByteCountFromStandardInput(t *testing.T) {
 	cmd.Stdin = pipeReader
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -192,13 +185,11 @@ func TestWCToolByteCountFromStandardInput(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolCharacterCountFromStandardInput(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	content := read(file, t)
 
@@ -215,6 +206,7 @@ func TestWCToolCharacterCountFromStandardInput(t *testing.T) {
 	cmd.Stdin = pipeReader
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -223,18 +215,17 @@ func TestWCToolCharacterCountFromStandardInput(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
 func TestWCToolDefaultCountFromStandardInput(t *testing.T) {
-	setupWCTool(t)
-
-	file := "./../test.txt"
+	setup(t)
 
 	content := read(file, t)
 
 	pipeReader, pipeWriter, err := os.Pipe()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Error creating pipe: %v", err)
 	}
 	defer pipeReader.Close()
@@ -246,6 +237,7 @@ func TestWCToolDefaultCountFromStandardInput(t *testing.T) {
 	cmd.Stdin = pipeReader
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to execute wc-tool: %v", err)
 	}
 
@@ -254,20 +246,23 @@ func TestWCToolDefaultCountFromStandardInput(t *testing.T) {
 		t.Errorf("Expected output: %q, but got: %q", expected, output)
 	}
 
-	cleanupWCTool(t)
+	cleanup(t)
 }
 
-func setupWCTool(t *testing.T) {
+func setup(t *testing.T) {
 	buildCmd := exec.Command("go", "build", "-o", "wc-tool", "./../../cmd/wc-tool/main.go")
 	err := buildCmd.Run()
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to build wc-tool: %v", err)
 	}
+	file = "./../test.txt"
 }
 
-func cleanupWCTool(t *testing.T) {
+func cleanup(t *testing.T) {
 	err := os.Remove("wc-tool")
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Failed to remove wc-tool executable: %v", err)
 	}
 }
@@ -275,6 +270,7 @@ func cleanupWCTool(t *testing.T) {
 func read(file string, t *testing.T) []byte {
 	content, err := os.ReadFile(file)
 	if err != nil {
+		cleanup(t)
 		t.Fatalf("Error reading test file: %v", err)
 	}
 	return content

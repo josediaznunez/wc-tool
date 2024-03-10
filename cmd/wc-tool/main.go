@@ -40,8 +40,8 @@ func main() {
 		fmt.Printf("\t%d %s\n", characters, file)
 	} else {
 		lines := commands.LineCount(input)
-		bytes := commands.ByteCount(input)
 		words := commands.WordCount(input)
+		bytes := commands.ByteCount(input)
 		fmt.Printf("\t%d \t%d \t%d \t%s\n", lines, words, bytes, file)
 	}
 }
